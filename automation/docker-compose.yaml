@@ -1,0 +1,30 @@
+version: '3.8'
+name: 'automation'
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    restart: always
+    ports:
+      - 5678:5678
+    volumes:
+      - ./volumes/n8n:/home/node/.n8n
+    env_file:
+      - ./env/.n8n.env
+    environment:
+      - N8N_HOST=0.0.0.0
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - WEBHOOK_URL=http://localhost:5678/
+
+  carbone:
+    image: carbone/carbone-ee:latest
+    container_name: carbone
+    restart: always
+    ports:
+      - 4000:4000
+    volumes:
+      - ./volumes/carbone/templates:/app/templates
+      - ./volumes/carbone/renders:/app/renders
+    env_file:
+      - ./env/.carbone.env

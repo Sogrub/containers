@@ -1,5 +1,5 @@
 version: '3.8'
-name: 'local'
+name: 'databases'
 services:
   mongodb:
     image: mongo:latest
